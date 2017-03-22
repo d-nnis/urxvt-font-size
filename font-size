@@ -105,6 +105,11 @@ size change sequence would be for example 8->12->16->20 instead of
 available in specific sizes, though, and odd sizes are often not
 available, resulting in an effective step size of 2 instead of 1
 in that case.
+
+
+## TODO:
+# add option to change font-size with absolute value
+
 =cut
 
 use strict;
