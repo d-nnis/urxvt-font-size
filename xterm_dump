@@ -1,0 +1,122 @@
+$VAR1=bless({
+  '_name'=>'font-size',
+  'argv'=>[],
+  'boldItalicFont'=>'xft:DejaVuSansMono:style=BoldOblique:size=10',
+  'boldFont'=>'xft:DejaVuSansMono:style=Bold:size=10',
+  '_pkg'=>'urxvt::ext::font_size',
+  'font'=>'xft:DejaVuSansMono:style=Book:size=10',
+  'term'=>bless({
+    '_overlay'=>[],
+    '_hook'=>[
+    undef,
+    undef,
+    undef,
+      {
+        'urxvt::ext::font_size'=> sub {
+          "DUMMY"},
+        'urxvt::ext::keyboard_select'=> sub {
+          "DUMMY"}
+      },
+      undef,undef,undef,undef,undef,undef,undef,undef,undef,undef,undef,undef,undef,undef,undef,undef,
+        {
+          'urxvt::ext::keyboard_select'=> sub{
+"DUMMY"
+},
+'urxvt::ext::font_size'
+=>
+sub
+{
+"DUMMY"
+},
+'urxvt::ext::fullscreen'
+=>
+sub
+{
+"DUMMY"
+}
+}
+],
+'_pkg'
+=>
+{
+'urxvt::ext::fullscreen'
+=>
+bless(
+{
+'_pkg'
+=>
+'urxvt::ext::fullscreen',
+'_name'
+=>
+'fullscreen',
+'argv'
+=>
+[],
+'term'
+=>
+$VAR1->{'term'}
+},
+'urxvt::ext::fullscreen'
+),
+'urxvt::ext::font_size'
+=>
+$VAR1,
+'urxvt::ext::keyboard_select'
+=>
+bless(
+{
+'_name'
+=>
+'keyboard-select',
+'_pkg'
+=>
+'urxvt::ext::keyboard_select',
+'term'
+=>
+$VAR1->{'term'},
+'argv'
+=>
+[],
+'patterns'
+=>
+{
+'b'
+=>
+qr/.*(?:\w[^\w\s]|\W\w|\s\S)/,
+'E'
+=>
+qr/\S(?=\s|$)/,
+'e'
+=>
+qr/[^\w\s](?=\w)|\w(?=\W)|\S(?=\s|$)/,
+'w'
+=>
+qr/\w[^\w\s]|\W\w|\s\S/,
+'B'
+=>
+qr/.*\s\S/,
+'W'
+=>
+qr/\s\S/
+}
+},
+'urxvt::ext::keyboard_select'
+)
+},
+'_selection'
+=>
+[]
+},
+'urxvt::term'
+),
+'italicFont'
+=>
+'xft:DejaVu
+Sans
+Mono:style=Oblique:size=10',
+'step'
+=>
+'1'
+},
+'urxvt::ext::font_size'
+);
