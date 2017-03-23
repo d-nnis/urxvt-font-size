@@ -114,6 +114,7 @@ in that case.
 
 use strict;
 use warnings;
+use Data::Dumper;
 
 my %escapecodes = (
     "font"           => 710,
@@ -152,6 +153,16 @@ sub on_user_command
         fonts_change_size($self,  $step, 2);
     } elsif ($cmd eq "font-size:decsave") {
         fonts_change_size($self, -$step, 2);
+    } elsif ($cmd =~ /font-size:abs(\d+)/) {
+        my $abssize = $1;
+        # Resize to initial font size...
+        fonts_reset($self);
+        #URxvt.keysym.C-6: perl:font-size:abs15
+        # and achieve absolute size by ways of _step_
+        $step = $abssize - 10;
+        fonts_change_size($self, $step, 0);
+        #$self->scr_add_lines("abssize:$abssize\r\n");
+#    $term->cmd_parse("\033]" . $escapecodes{$type} . ";" . $newfont . "\033\\");
     } elsif ($cmd eq "font-size:reset") {
         fonts_reset($self);
     } elsif ($cmd eq "font-size:show") {
@@ -177,6 +188,16 @@ sub on_action
         fonts_change_size($self,  $step, 2);
     } elsif ($action eq "decsave") {
         fonts_change_size($self, -$step, 2);
+    } elsif ($action =~ /abs(\d+)/) {
+        fonts_reset($self);
+        my $abssize = $1;
+        # Resize to initial font size...
+        fonts_reset($self);
+        #URxvt.keysym.C-6: perl:font-size:abs15
+        # and achieve absolute size by ways of _step_
+        $step = $abssize - 10;
+        fonts_change_size($self, $step, 0);
+        #$self->scr_add_lines("abssize:$abssize\r\n");
     } elsif ($action eq "reset") {
         fonts_reset($self);
     } elsif ($action eq "show") {
@@ -186,11 +207,10 @@ sub on_action
 
 sub fonts_change_size
 {
-    my ($term, $delta, $save) = @_;
+  my ($term, $delta, $save) = @_;
+  my @newfonts = ();
 
-    my @newfonts = ();
-
-    my $curres = $term->resource('font');
+  my $curres = $term->resource('font');
     if (!$curres) {
         $term->scr_add_lines("\r\nWarning: No font configured, trying a default.\r\nPlease set a font with the 'URxvt.font' resource.");
         $curres = "fixed";
@@ -307,7 +327,8 @@ sub handle_font
         ($newfont, $newdelta, $newsize) = font_change_size_xlfd($term, $fontfull, $delta, $basedelta, $basesize);
     }
 
-    # $term->scr_add_lines("\r\nNew font is $newfont\n");
+    #$term->scr_add_lines("\r\nNew font is $newfont\n");
+    #$term->scr_add_lines("\r\nNew size is $newsize\n");
     if ($prefix) {
         $newfont = "x:$newfont";
     }
@@ -459,7 +480,8 @@ sub font_apply_new
 {
     my ($term, $newfont, $type, $save) = @_;
 
-    # $term->scr_add_lines("\r\nnew font is $newfont\n");
+    #$term->scr_add_lines("\r\nnew font is $newfont\n");
+    #$term->scr_add_lines("\r\ntype:$type, save:$save\n");
 
     $term->cmd_parse("\033]" . $escapecodes{$type} . ";" . $newfont . "\033\\");
 
