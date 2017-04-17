@@ -109,6 +109,7 @@ in that case.
 
 ## TODO:
 # add option to change font-size with absolute value
+# Perl Extension reference http://pod.tst.eu/http://cvs.schmorp.de/rxvt-unicode/src/urxvt.pm
 
 =cut
 
